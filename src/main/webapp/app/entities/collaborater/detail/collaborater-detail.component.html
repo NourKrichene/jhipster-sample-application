@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="collaborater">
+      <h2 data-cy="collaboraterDetailsHeading"><span>Collaborater</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ collaborater.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ collaborater.name }}</span>
+        </dd>
+        <dt><span>Creation Date</span></dt>
+        <dd>
+          <span>{{ collaborater.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Archived</span></dt>
+        <dd>
+          <span>{{ collaborater.archived }}</span>
+        </dd>
+        <dt><span>Creator</span></dt>
+        <dd>
+          <div *ngIf="collaborater.creator">
+            <a [routerLink]="['/collaborater', collaborater.creator.id, 'view']">{{ collaborater.creator.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/collaborater', collaborater.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

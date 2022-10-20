@@ -1,0 +1,121 @@
+<div>
+  <h2 id="page-heading" data-cy="FileHeading">
+    <span>Files</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-file"
+        [routerLink]="['/file/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new File </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="files?.length === 0">
+    <span>No Files found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="files && files.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span>Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="creationDate">
+            <div class="d-flex">
+              <span>Creation Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="archived">
+            <div class="d-flex">
+              <span>Archived</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="path">
+            <div class="d-flex">
+              <span>Path</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="creator.id">
+            <div class="d-flex">
+              <span>Creator</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="file.id">
+            <div class="d-flex">
+              <span>File</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of files; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/file', file.id, 'view']">{{ file.id }}</a>
+          </td>
+          <td>{{ file.name }}</td>
+          <td>{{ file.creationDate | formatMediumDatetime }}</td>
+          <td>{{ file.archived }}</td>
+          <td>{{ file.path }}</td>
+          <td>
+            <div *ngIf="file.creator">
+              <a [routerLink]="['/collaborater', file.creator.id, 'view']">{{ file.creator.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="file.file">
+              <a [routerLink]="['/message', file.file.id, 'view']">{{ file.file.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/file', file.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/file', file.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(file)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

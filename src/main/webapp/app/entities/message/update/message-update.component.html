@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-message-heading" data-cy="MessageCreateUpdateHeading">Create or edit a Message</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let status of statusValues" [value]="status">status</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_text">Text</label>
+          <input type="text" class="form-control" name="text" id="field_text" data-cy="text" formControlName="text" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_sentDate">Sent Date</label>
+          <div class="d-flex">
+            <input
+              id="field_sentDate"
+              data-cy="sentDate"
+              type="datetime-local"
+              class="form-control"
+              name="sentDate"
+              formControlName="sentDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_archived">Archived</label>
+          <input type="checkbox" class="form-check" name="archived" id="field_archived" data-cy="archived" formControlName="archived" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_reaad">Reaad</label>
+          <input type="checkbox" class="form-check" name="reaad" id="field_reaad" data-cy="reaad" formControlName="reaad" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_from">From</label>
+          <select
+            class="form-control"
+            id="field_from"
+            data-cy="from"
+            name="from"
+            formControlName="from"
+            [compareWith]="compareCollaborater"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="collaboraterOption" *ngFor="let collaboraterOption of collaboratersSharedCollection">
+              {{ collaboraterOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_too">Too</label>
+          <select class="form-control" id="field_too" data-cy="too" name="too" formControlName="too" [compareWith]="compareCollaborater">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="collaboraterOption" *ngFor="let collaboraterOption of collaboratersSharedCollection">
+              {{ collaboraterOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="MessageHeading">
+    <span>Messages</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-message"
+        [routerLink]="['/message/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Message </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="messages?.length === 0">
+    <span>No Messages found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="messages && messages.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <div class="d-flex">
+              <span>Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="text">
+            <div class="d-flex">
+              <span>Text</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sentDate">
+            <div class="d-flex">
+              <span>Sent Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="archived">
+            <div class="d-flex">
+              <span>Archived</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="reaad">
+            <div class="d-flex">
+              <span>Reaad</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="from.id">
+            <div class="d-flex">
+              <span>From</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="too.id">
+            <div class="d-flex">
+              <span>Too</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of messages; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/message', message.id, 'view']">{{ message.id }}</a>
+          </td>
+          <td>{{ message.status }}</td>
+          <td>{{ message.text }}</td>
+          <td>{{ message.sentDate | formatMediumDatetime }}</td>
+          <td>{{ message.archived }}</td>
+          <td>{{ message.reaad }}</td>
+          <td>
+            <div *ngIf="message.from">
+              <a [routerLink]="['/collaborater', message.from.id, 'view']">{{ message.from.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="message.too">
+              <a [routerLink]="['/collaborater', message.too.id, 'view']">{{ message.too.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/message', message.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/message', message.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(message)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
