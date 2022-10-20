@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="project">
+      <h2 data-cy="projectDetailsHeading"><span>Project</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ project.id }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ project.status }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ project.name }}</span>
+        </dd>
+        <dt><span>Creation Date</span></dt>
+        <dd>
+          <span>{{ project.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Archived</span></dt>
+        <dd>
+          <span>{{ project.archived }}</span>
+        </dd>
+        <dt><span>Creator</span></dt>
+        <dd>
+          <div *ngIf="project.creator">
+            <a [routerLink]="['/collaborater', project.creator.id, 'view']">{{ project.creator.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/project', project.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

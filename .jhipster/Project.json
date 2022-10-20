@@ -1,0 +1,44 @@
+{
+  "applications": "*",
+  "changelogDate": "20221020101004",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "project",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "DONE,NOT_DONE,IN_PROGRESS"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "archived",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Project",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "collaborater",
+      "ownerSide": true,
+      "relationshipName": "creator",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

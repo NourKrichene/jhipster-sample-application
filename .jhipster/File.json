@@ -1,0 +1,49 @@
+{
+  "applications": "*",
+  "changelogDate": "20221020101003",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "file",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "archived",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "path",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "File",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "collaborater",
+      "ownerSide": true,
+      "relationshipName": "creator",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "file",
+      "relationshipName": "file",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

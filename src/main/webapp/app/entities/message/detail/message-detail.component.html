@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="message">
+      <h2 data-cy="messageDetailsHeading"><span>Message</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ message.id }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ message.status }}</span>
+        </dd>
+        <dt><span>Text</span></dt>
+        <dd>
+          <span>{{ message.text }}</span>
+        </dd>
+        <dt><span>Sent Date</span></dt>
+        <dd>
+          <span>{{ message.sentDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Archived</span></dt>
+        <dd>
+          <span>{{ message.archived }}</span>
+        </dd>
+        <dt><span>Reaad</span></dt>
+        <dd>
+          <span>{{ message.reaad }}</span>
+        </dd>
+        <dt><span>From</span></dt>
+        <dd>
+          <div *ngIf="message.from">
+            <a [routerLink]="['/collaborater', message.from.id, 'view']">{{ message.from.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Too</span></dt>
+        <dd>
+          <div *ngIf="message.too">
+            <a [routerLink]="['/collaborater', message.too.id, 'view']">{{ message.too.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/message', message.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

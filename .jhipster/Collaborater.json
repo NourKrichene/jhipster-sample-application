@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20221020101002",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "collaborater",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "archived",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Collaborater",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "collaborater",
+      "ownerSide": true,
+      "relationshipName": "creator",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "task",
+      "otherEntityRelationshipName": "collaborater",
+      "ownerSide": false,
+      "relationshipName": "task",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

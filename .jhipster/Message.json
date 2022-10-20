@@ -1,0 +1,60 @@
+{
+  "applications": "*",
+  "changelogDate": "20221020101005",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "message",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "DONE,NOT_DONE,IN_PROGRESS"
+    },
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sentDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "archived",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "reaad",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Message",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "collaborater",
+      "ownerSide": true,
+      "relationshipName": "from",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "collaborater",
+      "ownerSide": true,
+      "relationshipName": "too",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "file",
+      "otherEntityRelationshipName": "file",
+      "relationshipName": "file",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

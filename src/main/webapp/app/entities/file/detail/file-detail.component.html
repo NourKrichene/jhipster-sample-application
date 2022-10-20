@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="file">
+      <h2 data-cy="fileDetailsHeading"><span>File</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ file.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ file.name }}</span>
+        </dd>
+        <dt><span>Creation Date</span></dt>
+        <dd>
+          <span>{{ file.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Archived</span></dt>
+        <dd>
+          <span>{{ file.archived }}</span>
+        </dd>
+        <dt><span>Path</span></dt>
+        <dd>
+          <span>{{ file.path }}</span>
+        </dd>
+        <dt><span>Creator</span></dt>
+        <dd>
+          <div *ngIf="file.creator">
+            <a [routerLink]="['/collaborater', file.creator.id, 'view']">{{ file.creator.id }}</a>
+          </div>
+        </dd>
+        <dt><span>File</span></dt>
+        <dd>
+          <div *ngIf="file.file">
+            <a [routerLink]="['/message', file.file.id, 'view']">{{ file.file.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/file', file.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
