@@ -1,0 +1,61 @@
+
+entity Task {
+ id Long,
+ status Status,
+ name String,
+ creationDate Instant,
+ archived Boolean
+}
+
+entity Collaborater {
+ id Long,
+ name String,
+ creationDate Instant,
+ archived Boolean
+}
+
+entity File {
+	 id Long,
+ name String,
+ creationDate Instant,
+ archived Boolean,
+ path String
+}
+
+entity Project {
+ id Long,
+  status Status,
+ name String,
+ creationDate Instant,
+ archived Boolean
+}
+
+entity Message {
+ id Long,
+ status Status,
+ text String,
+ sentDate Instant,
+ archived Boolean,
+  reaad Boolean
+}
+
+enum Status {
+    DONE, NOT_DONE, IN_PROGRESS
+}
+
+relationship ManyToMany {
+	Task{collaborater(id)} to Collaborater{task}
+}
+
+relationship OneToOne {
+	Task{creator} to Collaborater,
+	File{creator} to Collaborater,
+	Project{creator} to Project,
+    Collaborater{creator} to Collaborater,
+    Message{from}to Collaborater,
+    Message{too}to Collaborater
+}
+
+relationship OneToMany {
+	Message to File{file}
+}
